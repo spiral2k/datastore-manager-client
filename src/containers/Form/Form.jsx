@@ -43,12 +43,17 @@ function Form({ dispatch, type, name, value }) {
     }
 
     const handleSubmit = async () => {
-        const callData = getCallData()
+        try {
+            const callData = getCallData()
 
-        dispatch(TerminalActions.setString({ text: `Sending request: ${callData}`, color: '#fdff9b' }))
-        setTimeout(() => dispatch(TerminalActions.setString({ text: `Waiting for response...`, color: '#fdff9b' })), 20)
-        const data = await GAEApi.get(callData)
-        dispatch(TerminalActions.setString(data))
+            dispatch(TerminalActions.setString({ text: `Sending request: ${callData}`, color: '#fdff9b' }))
+            dispatch(TerminalActions.setString({ text: `Waiting for response...`, color: '#fdff9b' }))
+            const data = await GAEApi.get(callData)
+
+            dispatch(TerminalActions.setString({ txt: data }))
+        } catch (e) {
+            setTimeout(() => dispatch(TerminalActions.setString({ text: `Somthing went wrong, you can try again.`, color: '#fb6c6c' })), 50)
+        }
     }
 
     const handleTypeChange = e => {
