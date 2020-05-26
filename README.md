@@ -7,7 +7,7 @@ https://fastsimon-278220.ew.r.appspot.com/
 
 ## Getting Started
 
-These instructions will get you a copy of the datastore-client up and running on your local machine for development and production purposes.
+These instructions will get you a copy of the datastore-manager-client up and running on your local machine for development and production purposes.
 
 ### Installing
 
