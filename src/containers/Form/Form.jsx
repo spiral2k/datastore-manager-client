@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -17,21 +17,23 @@ import * as TerminalActions from '@reducers/terminal/actions'
 import './Form.scss'
 
 function Form({ dispatch, type, name, value }) {
+    const [disabled, setDisabled] = useState({ name: false, value: false })
+
     const getCallData = () => {
         switch (type) {
-            case 'set':
+            case 'SET':
                 return `set?name=${name}&value=${value}`
-            case 'get':
+            case 'GET':
                 return `get?name=${name}`
-            case 'unset':
+            case 'UNSET':
                 return `unset?name=${name}`
-            case 'undo':
+            case 'UNDO':
                 return `undo`
-            case 'redo':
+            case 'REDO':
                 return `redo`
-            case 'numequalto':
+            case 'NUMEQUALTO':
                 return `numequalto?value=${value}`
-            case 'end':
+            case 'END':
                 return `end`
 
             default:
@@ -43,27 +45,66 @@ function Form({ dispatch, type, name, value }) {
     const handleSubmit = async () => {
         const callData = getCallData()
 
-        dispatch(TerminalActions.setString(`Sending request: ${callData}`))
-        setTimeout(() => dispatch(TerminalActions.setString(`Waiting for response...`)), 20)
+        dispatch(TerminalActions.setString({ text: `Sending request: ${callData}`, color: '#fdff9b' }))
+        setTimeout(() => dispatch(TerminalActions.setString({ text: `Waiting for response...`, color: '#fdff9b' })), 20)
         const data = await GAEApi.get(callData)
         dispatch(TerminalActions.setString(data))
     }
 
+    const handleTypeChange = e => {
+        switch (e.target.value) {
+            case 'SET':
+                setDisabled({ name: false, value: false })
+                break
+            case 'GET':
+                setDisabled({ name: false, value: true })
+                break
+            case 'UNSET':
+                setDisabled({ name: false, value: true })
+                break
+            case 'UNDO':
+                setDisabled({ name: true, value: true })
+                break
+            case 'REDO':
+                setDisabled({ name: true, value: true })
+                break
+            case 'NUMEQUALTO':
+                setDisabled({ name: true, value: false })
+                break
+            case 'END':
+                setDisabled({ name: true, value: true })
+                break
+
+            default:
+                // handle error
+                return null
+        }
+
+        return dispatch(FormActions.setValues({ type: e.target.value }))
+    }
+
     return (
         <div className="form-container">
-            <Select
-                value={type}
-                options={['set', 'get', 'unset', 'numequalto', 'undo', 'redo', 'end']}
-                onChange={e => dispatch(FormActions.setValues({ type: e.target.value }))}
+            <Select value={type} options={['SET', 'GET', 'UNSET', 'NUMEQUALTO', 'UNDO', 'REDO', 'END']} onChange={handleTypeChange} />
+            <Input
+                placeholder="name"
+                value={name}
+                disabled={disabled.name}
+                onChange={e => dispatch(FormActions.setValues({ name: e.target.value }))}
             />
-            <Input placeholder="name" value={name} onChange={e => dispatch(FormActions.setValues({ name: e.target.value }))} />{' '}
-            <Input placeholder="value" value={value} onChange={e => dispatch(FormActions.setValues({ value: e.target.value }))} />
+            <Input
+                placeholder="value"
+                value={value}
+                disabled={disabled.value}
+                onChange={e => dispatch(FormActions.setValues({ value: e.target.value }))}
+            />
             <Button text="Send" onClick={handleSubmit} />
         </div>
     )
 }
 
 Form.propTypes = {
+    dispatch: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,

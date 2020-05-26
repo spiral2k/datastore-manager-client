@@ -3,8 +3,9 @@ import Store from '@redux/store'
 
 /* Components */
 import Form from '@containers/Form/Form'
-import Image from '@components/Image/Image'
+import HeaderText from '@components/HeaderText/HeaderText'
 import Terminal from '@containers/Terminal/Terminal'
+import Commands from '@components/Commands/Commands'
 
 /* Actions */
 import * as TerminalActions from '@reducers/terminal/actions'
@@ -13,9 +14,9 @@ import './App.scss'
 
 const App = () => {
     const initTerminal = useCallback(() => {
-        setTimeout(() => Store.dispatch(TerminalActions.setString('Connecting...')), 300)
-        setTimeout(() => Store.dispatch(TerminalActions.setString('Welcome to the Datastore!')), 1000)
-        setTimeout(() => Store.dispatch(TerminalActions.setString('--------------------------------')), 1100)
+        setTimeout(() => Store.dispatch(TerminalActions.setString({ text: 'Connecting...', color: '#69ff6f' })), 300)
+        setTimeout(() => Store.dispatch(TerminalActions.setString({ text: 'Welcome to the Datastore!' })), 1000)
+        setTimeout(() => Store.dispatch(TerminalActions.setString({ text: '--------------------------------' })), 1100)
     }, [])
 
     useEffect(() => {
@@ -24,9 +25,10 @@ const App = () => {
 
     return (
         <div className="app-page container">
-            <Image src="https://www.guidance.com/hs-fs/hubfs/ISP%20logo%20new.png" className="logo" />
+            <HeaderText />
             <Form />
             <Terminal />
+            <Commands />
         </div>
     )
 }

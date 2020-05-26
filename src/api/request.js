@@ -2,7 +2,6 @@ import axios from 'axios'
 
 const defaultHeaders = { 'Content-Type': 'application/json' }
 
-// generic request handler, optionally: can update the fetchStatus of the call
 export default ({ url, method, data = {}, headers = defaultHeaders }) => {
     const dataOrParams = ['GET', 'DELETE'].includes(method) ? 'params' : 'data'
 

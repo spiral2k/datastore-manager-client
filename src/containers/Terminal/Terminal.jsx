@@ -13,7 +13,7 @@ const Terminal = ({ strings }) => {
     const [springProps, setSpringProps] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 100, tension: 200, friction: 300 } }))
 
     useEffect(() => {
-        if (endRef.current.scrollIntoView) endRef.current.scrollIntoView({ behavior: 'smooth' })
+        if (endRef.current.scrollIntoView) endRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' })
     }, [strings])
 
     return (
@@ -26,9 +26,9 @@ const Terminal = ({ strings }) => {
             <>
                 {strings.map((str, i) => (
                     // eslint-disable-next-line react/no-array-index-key
-                    <span key={`${str}-${i}`} className="line">
-                        $ {str}
-                    </span>
+                    <div key={`${str.text}-${i}`} className="line">
+                        <span>$ </span> <span style={{ color: str.color }}>{str.text}</span>
+                    </div>
                 ))}
                 <span className="line" ref={endRef}>
                     $ <span className="blink"></span>

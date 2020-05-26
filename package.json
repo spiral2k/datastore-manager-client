@@ -1,8 +1,8 @@
 {
-    "name": "fast-simon-client",
+    "name": "datastore-client",
     "version": "0.0.1",
     "author": "Meni Edri",
-    "description": "fast-simon test",
+    "description": "",
     "main": "src/index.jsx",
     "scripts": {
         "dev": "webpack-dev-server --port 5000 --open",

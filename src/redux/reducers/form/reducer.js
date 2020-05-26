@@ -1,7 +1,7 @@
 import Constants from './constants'
 
 const initialState = {
-    type: 'set',
+    type: 'SET',
     name: '',
     value: '',
 }

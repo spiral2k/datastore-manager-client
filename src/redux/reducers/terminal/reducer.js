@@ -2,7 +2,6 @@ import Constants from './constants'
 
 const initialState = {
     strings: [],
-    timeout: 0,
 }
 
 export default (state = initialState, { type, payload }) => {

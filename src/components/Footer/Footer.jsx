@@ -4,9 +4,9 @@ import './Footer.scss'
 
 const Footer = () => (
     <footer>
-        Built by{' '}
+        Built with React, Redux & React-Spring by
         <a target="_blank" rel="noreferrer" href="https://github.com/spiral2k">
-            Meni
+            spiral2k
         </a>
     </footer>
 )
