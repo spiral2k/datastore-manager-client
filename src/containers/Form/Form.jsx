@@ -50,6 +50,15 @@ function Form({ dispatch, type, name, value }) {
             dispatch(TerminalActions.setString({ text: `Waiting for response...`, color: '#fdff9b' }))
 
             const text = await GAEApi.get(callData)
+
+            if (typeof text !== 'string' || !text) {
+                throw new Error('Error: expected string')
+            }
+
+            if (text.indexOf('Error') > -1) {
+                return dispatch(TerminalActions.setString({ text, color: '#fb6c6c' }))
+            }
+
             dispatch(TerminalActions.setString({ text }))
         } catch (e) {
             setTimeout(() => dispatch(TerminalActions.setString({ text: `Error: Something went wrong.`, color: '#fb6c6c' })), 150)

@@ -15,7 +15,8 @@ import './App.scss'
 const App = () => {
     const initTerminal = useCallback(() => {
         setTimeout(() => Store.dispatch(TerminalActions.setString({ text: 'Connecting...', color: '#69ff6f' })), 300)
-        setTimeout(() => Store.dispatch(TerminalActions.setString({ text: 'Welcome to the Datastore!' })), 1000)
+        setTimeout(() => Store.dispatch(TerminalActions.setString({ text: 'Welcome to Datastore Manager!' })), 1000)
+        setTimeout(() => Store.dispatch(TerminalActions.setString({ text: 'Waiting for commands...' })), 1300)
         setTimeout(() => Store.dispatch(TerminalActions.setString({ text: '--------------------------------' })), 1100)
     }, [])
 
