@@ -1,9 +1,12 @@
 # Fast-simon (client)
 
-built with webpack, react & redux from scratch
+built with Webpack, React, Redux & React-Spring
 
 live:
 https://fastsimon-278220.ew.r.appspot.com/
+
+source code of the backand:
+https://github.com/spiral2k/datastore-manager-server
 
 ## Getting Started
 
