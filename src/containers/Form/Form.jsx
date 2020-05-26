@@ -52,7 +52,7 @@ function Form({ dispatch, type, name, value }) {
 
             dispatch(TerminalActions.setString({ txt: data }))
         } catch (e) {
-            setTimeout(() => dispatch(TerminalActions.setString({ text: `Somthing went wrong, you can try again.`, color: '#fb6c6c' })), 50)
+            setTimeout(() => dispatch(TerminalActions.setString({ text: `Error: Something went wrong.`, color: '#fb6c6c' })), 150)
         }
     }
 
