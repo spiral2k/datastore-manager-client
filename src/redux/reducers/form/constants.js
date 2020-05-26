@@ -1,0 +1,4 @@
+export default {
+    SET_FORM_VALUES: 'SET_FORM_VALUES',
+    RESET_FORM_REDUCER: 'RESET_FORM_REDUCER',
+}
