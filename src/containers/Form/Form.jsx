@@ -48,9 +48,9 @@ function Form({ dispatch, type, name, value }) {
 
             dispatch(TerminalActions.setString({ text: `Sending request: ${callData}`, color: '#fdff9b' }))
             dispatch(TerminalActions.setString({ text: `Waiting for response...`, color: '#fdff9b' }))
-            const data = await GAEApi.get(callData)
 
-            dispatch(TerminalActions.setString({ text: data }))
+            const text = await GAEApi.get(callData)
+            dispatch(TerminalActions.setString({ text }))
         } catch (e) {
             setTimeout(() => dispatch(TerminalActions.setString({ text: `Error: Something went wrong.`, color: '#fb6c6c' })), 150)
         }
